@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kiddo</string>
+    <string name="login">Entrar</string>
+    <string name="register">Cadastrar</string>
+    <string name="email_username">E-mail ou Nome de Usuário</string>
+    <string name="password">Senha</string>
+    <string name="confirm_password">Confirmar Senha</string>
+    <string name="remember_me">Manter conectado</string>
+    <string name="name_child">Nome da Criança</string>
+    <string name="xp_hoje">XP Hoje</string>
+    <string name="xp_total">XP Total</string>
+    <string name="sequencia">Sequência</string>
+    <string name="modo_fim_semana">Modo Fim de Semana</string>
+    <string name="semana">SEMANA</string>
+    <string name="fim_semana">FIM DE SEMANA</string>
+    <string name="sair">Sair</string>
+    <string name="exportar_dados">Exportar Dados</string>
+    <string name="resetar_progresso">Resetar Progresso</string>
+</resources>

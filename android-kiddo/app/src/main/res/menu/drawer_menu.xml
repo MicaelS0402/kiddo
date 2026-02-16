@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_account"
+            android:title="Conta"
+            android:icon="@android:drawable/ic_menu_edit" />
+        <item
+            android:id="@+id/menu_progress"
+            android:title="Visualizar Progresso"
+            android:icon="@android:drawable/ic_menu_week" />
+        <item
+            android:id="@+id/menu_export"
+            android:title="Exportar Dados"
+            android:icon="@android:drawable/ic_menu_share" />
+        <item
+            android:id="@+id/menu_reset"
+            android:title="Resetar Progresso"
+            android:icon="@android:drawable/ic_menu_delete" />
+        <item
+            android:id="@+id/menu_logout"
+            android:title="Sair"
+            android:icon="@android:drawable/ic_lock_power_off" />
+    </group>
+</menu>
