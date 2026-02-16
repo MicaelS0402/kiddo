@@ -1,222 +1,233 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/bgLight">
-
+    android:fillViewport="true">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
-            android:orientation="vertical"
-            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
-
+            android:padding="16dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:weightSum="2">
-
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/userName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     android:text="Usuário"/>
-
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/btnLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sair"/>
+                    android:text="@string/logout"/>
             </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kiddo"
-                android:textSize="22sp"
+                android:text="Criando hábitos, formando vencedores"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="6dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:background="#33FFFFFF">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XP Hoje"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/dailyXP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:text="0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XP Total"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/totalXP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:text="0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sequência"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/streak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:text="0 🔥"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/currentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_marginTop="8dp"/>
-
+                android:textSize="16sp"
+                android:text="Hoje"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_marginTop="8dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <Button
+                    android:id="@+id/btnPrev"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp"
-                    android:background="@android:color/transparent">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/xp_hoje" android:textColor="@color/white"/>
-                    <TextView android:id="@+id/dailyXP" android:text="0" android:textStyle="bold" android:textColor="@color/white" android:textSize="18sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
+                    android:text="◀"/>
+                <TextView
+                    android:id="@+id/modeBadge"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/xp_total" android:textColor="@color/white"/>
-                    <TextView android:id="@+id/totalXP" android:text="0" android:textStyle="bold" android:textColor="@color/white" android:textSize="18sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="SEMANA"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"/>
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sequencia" android:textColor="@color/white"/>
-                    <TextView android:id="@+id/streak" android:text="0 🔥" android:textStyle="bold" android:textColor="@color/white" android:textSize="18sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                </LinearLayout>
+                    android:text="▶"/>
             </LinearLayout>
-
+            <Button
+                android:id="@+id/btnToggleMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alternar Modo FDS"
+                android:layout_marginTop="8dp"/>
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:id="@+id/progressBar"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:progress="0"
-                android:max="100"
-                android:layout_marginTop="8dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginBottom="8dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnPrevDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="◀"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp">
-                    <TextView
-                        android:id="@+id/currentDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hoje"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
-                    <TextView
-                        android:id="@+id/modeBadge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/semana"
-                        android:textColor="@color/textSecondary"/>
-                </LinearLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnNextDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="▶"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/modo_fim_semana"/>
-                <Switch
-                    android:id="@+id/toggleMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"/>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAuto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Automático"
-                    android:visibility="gone"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/sectionTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HÁBITOS"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-
-            <LinearLayout
-                android:id="@+id/blocksContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Conquistas Disponíveis"
-                android:textStyle="bold"
-                android:textSize="16sp"
                 android:layout_marginTop="12dp"/>
-
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textSecondary"
+                android:layout_marginTop="4dp"
+                android:text="0 XP"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preparação do Dia"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="16dp"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rewardsGrid"
+                android:id="@+id/listPrep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"/>
-
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Responsabilidades"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="16dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listResp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="8dp">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnExport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/exportar_dados"/>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnReset"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/resetar_progresso"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
+                android:nestedScrollingEnabled="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cuidado com o Espaço"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="16dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listSpace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desenvolvimento Pessoal"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="16dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listDev"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Encerramento do Dia"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="16dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listClose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
         </LinearLayout>
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
