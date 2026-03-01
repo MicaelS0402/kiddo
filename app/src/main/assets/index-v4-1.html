@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#00b4d8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kiddo">
+    <meta name="description" content="Criando hábitos, formando vencedores!">
+    
+    <title>Kiddo - Criando hábitos, formando vencedores</title>
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #00b4d8 0%, #7209b7 100%);
+            min-height: 100vh;
+            padding: 0;
+            color: #2d3748;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.2);
+        }
+
+        /* AUTH SCREEN STYLES */
+        .auth-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #00b4d8 0%, #7209b7 100%);
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-logo h1 {
+            font-size: 48px;
+            background: linear-gradient(135deg, #00b4d8, #7209b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .auth-logo p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #718096;
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: #00b4d8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
+        }
+
+        .form-group input.error {
+            border-color: #fc8181;
+        }
+
+        .error-message {
+            color: #fc8181;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #718096;
+            padding: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00b4d8, #0096c7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 180, 216, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            cursor: pointer;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        /* APP HEADER */
+        .header {
+            background: linear-gradient(135deg, #00b4d8 0%, #7209b7 100%);
+            color: white;
+            padding: 20px 20px;
+            padding-top: calc(10px + env(safe-area-inset-top, 0px));
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .logout-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ====== MENU LATERAL ====== */
+        .drawer-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 500; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s; backdrop-filter: blur(2px);
+        }
+        .drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+        .drawer {
+            position: fixed; top: 0; left: 0;
+            width: 300px; max-width: 85vw; height: 100%;
+            background: white; z-index: 600;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            display: flex; flex-direction: column;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.18); overflow: hidden;
+        }
+        .drawer.open { transform: translateX(0); }
+
+        .drawer-header {
+            background: linear-gradient(135deg, #00b4d8 0%, #7209b7 100%);
+            padding: 24px 20px 20px;
+            padding-top: calc(56px + env(safe-area-inset-top, 0px));
+            display: flex; align-items: center; gap: 14px; position: relative;
+        }
+        .drawer-avatar-big {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            border: 3px solid rgba(255,255,255,0.6);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; font-weight: bold; color: white;
+            flex-shrink: 0; overflow: hidden;
+        }
+        .drawer-avatar-big img { width: 100%; height: 100%; object-fit: cover; }
+        .drawer-user-info { flex: 1; }
+        .drawer-user-name { color: white; font-weight: 700; font-size: 17px; }
+        .drawer-user-email { color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 2px; }
+        .drawer-close {
+            position: absolute; top: calc(env(safe-area-inset-top, 0px) + 8px); right: 12px;
+            background: rgba(255,255,255,0.25); border: none; color: white;
+            width: 40px; height: 40px; border-radius: 50%;
+            z-index: 2;
+            width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+            font-size: 18px; display: flex; align-items: center; justify-content: center;
+        }
+        .drawer-nav { flex: 1; overflow-y: auto; padding: 12px 0; }
+        .drawer-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 15px 20px; cursor: pointer; transition: background 0.2s;
+            font-size: 15px; font-weight: 600; color: #2d3748;
+            border: none; background: transparent; width: 100%; text-align: left;
+        }
+        .drawer-item:hover { background: #f0f8ff; }
+        .drawer-item:active { background: #e0f2fe; }
+        .drawer-item-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0;
+        }
+        .drawer-item-icon.blue   { background: #e0f7fa; }
+        .drawer-item-icon.purple { background: #f3e5f5; }
+        .drawer-item-icon.green  { background: #e8f5e9; }
+        .drawer-item-icon.red    { background: #fce4ec; }
+        .drawer-divider { height: 1px; background: #e2e8f0; margin: 8px 16px; }
+        .drawer-item.danger { color: #e53e3e; }
+
+        /* ====== PAINÉIS LATERAIS ====== */
+        .side-panel {
+            position: fixed; top: 0; left: 0;
+            width: 300px; max-width: 85vw; height: 100%;
+            background: white; z-index: 700;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            display: flex; flex-direction: column;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+        }
+        .side-panel.open { transform: translateX(0); }
+        .side-panel-header {
+            background: linear-gradient(135deg, #00b4d8 0%, #7209b7 100%);
+            padding: 50px 20px 20px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .side-panel-back {
+            background: rgba(255,255,255,0.2); border: none; color: white;
+            width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+            font-size: 16px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .side-panel-title { color: white; font-weight: 700; font-size: 18px; }
+        .side-panel-body { flex: 1; overflow-y: auto; padding: 20px; }
+
+        .panel-section { margin-bottom: 24px; }
+        .panel-section-label {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+            color: #a0aec0; font-weight: 700; margin-bottom: 10px;
+        }
+        .panel-field { margin-bottom: 14px; }
+        .panel-field label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 6px; }
+        .panel-field input {
+            width: 100%; padding: 11px 14px; border: 2px solid #e2e8f0;
+            border-radius: 10px; font-size: 14px; outline: none; transition: border-color 0.2s;
+        }
+        .panel-field input:focus { border-color: #00b4d8; }
+        .panel-btn {
+            width: 100%; padding: 12px; border: none; border-radius: 10px;
+            font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 10px;
+        }
+        .panel-btn:active { transform: scale(0.98); }
+        .panel-btn.primary { background: linear-gradient(135deg,#00b4d8,#0096c7); color: white; box-shadow: 0 3px 10px rgba(0,180,216,0.3); }
+        .panel-btn.danger { background: #fff5f5; color: #e53e3e; border: 2px solid #feb2b2; }
+
+        .avatar-picker { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+        .avatar-option {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: #f0f8ff; border: 3px solid transparent;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; cursor: pointer; transition: all 0.2s;
+        }
+        .avatar-option:hover { border-color: #00b4d8; transform: scale(1.1); }
+        .avatar-option.selected { border-color: #7209b7; background: #f3e5f5; }
+
+        /* ====== GRÁFICO ====== */
+        .chart-toggle {
+            display: flex; gap: 8px; margin-bottom: 16px;
+            background: #f7fafc; border-radius: 10px; padding: 4px;
+        }
+        .chart-toggle-btn {
+            flex: 1; padding: 8px; border: none; background: transparent;
+            border-radius: 7px; font-size: 12px; font-weight: 600;
+            cursor: pointer; color: #718096; transition: all 0.2s;
+        }
+        .chart-toggle-btn.active { background: white; color: #00b4d8; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .chart-container { background: #f7fafc; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin-bottom: 8px; }
+        .chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+        .chart-bar { width: 100%; background: linear-gradient(180deg,#00b4d8,#7209b7); border-radius: 4px 4px 0 0; transition: height 0.6s cubic-bezier(0.4,0,0.2,1); min-height: 4px; }
+        .chart-bar-value { font-size: 9px; font-weight: 700; color: #4a5568; text-align: center; }
+        .chart-bar-label { font-size: 9px; color: #a0aec0; font-weight: 600; }
+        .chart-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+        .chart-stat-card { background: white; border-radius: 10px; padding: 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .chart-stat-value { font-size: 22px; font-weight: 800; color: #00b4d8; }
+        .chart-stat-label { font-size: 11px; color: #718096; margin-top: 2px; }
+
+        /* ====== FALE CONOSCO ====== */
+        .contact-card {
+            background: linear-gradient(135deg,#25d366,#128c7e);
+            border-radius: 14px; padding: 24px; text-align: center; color: white;
+            margin-bottom: 16px; cursor: pointer; transition: transform 0.2s;
+            text-decoration: none; display: block;
+        }
+        .contact-card:hover { transform: translateY(-2px); }
+        .contact-card:active { transform: scale(0.98); }
+        .contact-card .contact-icon { font-size: 48px; margin-bottom: 12px; }
+        .contact-card .contact-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+        .contact-card .contact-sub { font-size: 13px; opacity: 0.9; }
+        .panel-msg { background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 10px; padding: 14px; font-size: 13px; color: #276749; line-height: 1.5; }
+        .user-avatar { cursor: pointer; }
+        .user-avatar:hover { opacity: 0.85; }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-weight: 800;
+        }
+        
+        .slogan {
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.95;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .stats-bar {
+            background: rgba(255,255,255,0.15);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .progress-container {
+            background: rgba(255,255,255,0.2);
+            height: 28px;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #90e0ef, #48cae4);
+            height: 100%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+        .progress-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 13px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+        
+        .content {
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+        
+        .date-selector {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .date-selector h3 {
+            color: #00b4d8;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .date-nav button {
+            background: #00b4d8;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
+            touch-action: manipulation;
+        }
+        
+        .date-nav button:active {
+            transform: scale(0.95);
+        }
+        
+        .date-nav button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: scale(1);
+            box-shadow: none;
+        }
+        
+        .current-date {
+            font-size: 15px;
+            font-weight: bold;
+            color: #2d3748;
+            min-width: 160px;
+        }
+        
+        .mode-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .mode-badge.week {
+            background: #90e0ef;
+            color: #0077b6;
+        }
+        
+        .mode-badge.weekend {
+            background: #c77dff;
+            color: #5a189a;
+        }
+        
+        .mode-toggle {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .toggle-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #cbd5e0;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: #7209b7;
+        }
+        
+        .toggle-switch-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-switch.active .toggle-switch-slider {
+            transform: translateX(24px);
+        }
+        
+        .auto-button {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #718096;
+        }
+        
+        .auto-button:hover {
+            background: #edf2f7;
+        }
+        
+        .auto-button:active {
+            transform: scale(0.95);
+        }
+        
+        .quest-section {
+            margin-bottom: 20px;
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .quest-section.prep {
+            border-left: 4px solid #ffd60a;
+        }
+        
+        .quest-section.resp {
+            border-left: 4px solid #00b4d8;
+        }
+        
+        .quest-section.space {
+            border-left: 4px solid #38a169;
+        }
+        
+        .quest-section.dev {
+            border-left: 4px solid #7209b7;
+        }
+        
+        .quest-section.close {
+            border-left: 4px solid #f72585;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f7fafc;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-progress {
+            font-size: 13px;
+            color: #718096;
+            font-weight: bold;
+            background: #f7fafc;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+        
+        .quest-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f7fafc;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            user-select: none;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .quest-item:hover .quest-actions {
+            opacity: 1;
+        }
+        
+        .quest-item.completed {
+            background: #d1f4dd;
+            border-color: #38a169;
+        }
+        
+        .quest-item.completed .quest-text {
+            text-decoration: line-through;
+            color: #718096;
+        }
+        
+        .checkbox {
+            width: 28px;
+            height: 28px;
+            border: 3px solid #00b4d8;
+            border-radius: 7px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            background: white;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        
+        .checkbox:active {
+            transform: scale(0.9);
+        }
+        
+        .quest-item.completed .checkbox {
+            background: #38a169;
+            border-color: #38a169;
+            animation: checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes checkPop {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .quest-item.completed .checkbox::after {
+            opacity: 1;
+        }
+        
+        .quest-text {
+            flex-grow: 1;
+            font-size: 14px;
+            color: #2d3748;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .quest-text-input {
+            flex-grow: 1;
+            font-size: 14px;
+            color: #2d3748;
+            font-weight: 500;
+            border: 2px solid #00b4d8;
+            background: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            outline: none;
+        }
+        
+        .xp-badge {
+            background: linear-gradient(135deg, #ffd60a, #ffc300);
+            color: #744210;
+            padding: 5px 11px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+            border: 2px solid #ffb703;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(255, 214, 10, 0.3);
+        }
+        
+        .quest-actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            margin-left: 8px;
+        }
+        
+        .quest-item:hover .quest-actions,
+        .quest-item.editing .quest-actions {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .quest-actions {
+                opacity: 1;
+            }
+        }
+        
+        .action-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px 8px;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+        
+        .action-btn:hover {
+            background: rgba(0, 180, 216, 0.1);
+        }
+        
+        .action-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .add-quest-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00b4d8, #0096c7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
+        }
+        
+        .add-quest-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .reward-section {
+            background: linear-gradient(135deg, #f72585 0%, #7209b7 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            box-shadow: 0 4px 16px rgba(114, 9, 183, 0.3);
+        }
+        
+        .reward-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .reward-item {
+            background: white;
+            color: #2d3748;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        
+        .reward-item:active {
+            transform: scale(0.95);
+        }
+        
+        .reward-item.available {
+            border-color: #38a169;
+            animation: glow 2s infinite;
+            box-shadow: 0 0 20px rgba(56, 161, 105, 0.4);
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(56, 161, 105, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(56, 161, 105, 0.6); }
+        }
+        
+        .reward-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+        
+        .reward-name {
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+        
+        .reward-cost {
+            color: #744210;
+            background: #ffd60a;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .bonus-banner {
+            background: linear-gradient(135deg, #ffd60a 0%, #ffc300 100%);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            color: #744210;
+            font-weight: bold;
+            box-shadow: 0 4px 16px rgba(255, 195, 0, 0.3);
+        }
+        
+        .bonus-banner .streak {
+            font-size: 24px;
+            margin: 8px 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-button {
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            touch-action: manipulation;
+        }
+        
+        .action-button:active {
+            transform: scale(0.98);
+        }
+        
+        .export-button {
+            background: linear-gradient(135deg, #00b4d8, #0096c7);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+            font-size: 16px;
+        }
+        
+        .import-button {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            color: white;
+            box-shadow: 0 4px 12px rgba(56, 161, 105, 0.3);
+            font-size: 16px;
+        }
+        
+        .reset-button {
+            background: #e2e8f0;
+            color: #718096;
+            font-size: 12px;
+            padding: 10px;
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: center;
+            z-index: 1000;
+            display: none;
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 90%;
+        }
+        
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .celebration.show {
+            display: block;
+        }
+        
+        .celebration h2 {
+            color: #38a169;
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+        
+        .celebration-icon {
+            font-size: 56px;
+            margin: 15px 0;
+            animation: bounce 0.6s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .celebration p {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
+            display: none;
+            backdrop-filter: blur(4px);
+        }
+        
+        .overlay.show {
+            display: block;
+        }
+
+        .loading-overlay {
+            position: fixed; inset: 0; display: none;
+            background: rgba(0,0,0,0.35); z-index: 1000;
+            backdrop-filter: blur(2px);
+        }
+        .loading-overlay.show { display: flex; align-items: center; justify-content: center; }
+        .loading-content { text-align: center; color: #fff; font-weight: 700; }
+        .spinner {
+            width: 44px; height: 44px; border: 4px solid rgba(255,255,255,0.35);
+            border-top-color: #fff; border-radius: 50%; margin: 0 auto 12px;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .hidden {
+            display: none !important;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .slogan {
+                font-size: 11px;
+            }
+            
+            .stat-value {
+                font-size: 20px;
+            }
+
+            .auth-card {
+                padding: 30px 20px;
+            }
+
+            .auth-logo h1 {
+                font-size: 36px;
+            }
+        }
+        
+        @media (min-width: 800px) {
+            .rewards-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay"><div class="loading-content"><div class="spinner"></div><div id="loadingText">Carregando...</div></div></div>
+    <!-- AUTH SCREEN -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <h1>🎮 Kiddo</h1>
+                <p>Criando hábitos, formando vencedores</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Entrar</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Cadastrar</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">E-mail ou Nome de Usuário</label>
+                    <input type="text" id="loginEmail" required autocomplete="username">
+                    <div class="error-message" id="loginEmailError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <div class="password-toggle">
+                        <input type="password" id="loginPassword" required autocomplete="current-password">
+                        <button type="button" class="password-toggle-btn" onclick="togglePassword('loginPassword')">👁️</button>
+                    </div>
+                    <div class="error-message" id="loginPasswordError"></div>
+                </div>
+
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Manter conectado</label>
+                </div>
+
+                <button type="submit" class="submit-btn">Entrar</button>
+                <div style="margin-top:10px">
+                    <button type="button" class="submit-btn" onclick="Android.signInWithGoogle()">Entrar com Google</button>
+                </div>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Nome da Criança</label>
+                    <input type="text" id="registerName" required maxlength="50">
+                    <div class="error-message" id="registerNameError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerEmail">E-mail ou Nome de Usuário</label>
+                    <input type="text" id="registerEmail" required autocomplete="username">
+                    <div class="error-message" id="registerEmailError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Senha</label>
+                    <div class="password-toggle">
+                        <input type="password" id="registerPassword" required minlength="4" autocomplete="new-password">
+                        <button type="button" class="password-toggle-btn" onclick="togglePassword('registerPassword')">👁️</button>
+                    </div>
+                    <div class="error-message" id="registerPasswordError">Mínimo 4 caracteres</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Confirmar Senha</label>
+                    <div class="password-toggle">
+                        <input type="password" id="registerPasswordConfirm" required autocomplete="new-password">
+                        <button type="button" class="password-toggle-btn" onclick="togglePassword('registerPasswordConfirm')">👁️</button>
+                    </div>
+                    <div class="error-message" id="registerPasswordConfirmError"></div>
+                </div>
+
+                <button type="submit" class="submit-btn">Criar Conta</button>
+                <div style="margin-top:10px">
+                    <button type="button" class="submit-btn" onclick="Android.signInWithGoogle()">Entrar com Google</button>
+                </div>
+            </form>
+
+       
+        </div>
+    </div>
+
+    <!-- APP SCREEN -->
+    <div id="appScreen" class="hidden">
+        <div class="overlay" id="overlay"></div>
+        <div class="celebration" id="celebration">
+            <h2>Missão Completa!</h2>
+            <div class="celebration-icon">🎉</div>
+            <p id="celebrationText"></p>
+        </div>
+
+        <div class="container">
+            <div class="header">
+                <div class="header-top">
+                    <div class="user-info" onclick="openDrawer()" style="cursor:pointer">
+                        <div class="user-avatar" id="userAvatar">K</div>
+                        <div>
+                            <div class="user-name" id="userName">Usuário</div>
+                        </div>
+                    </div>
+                    <button class="logout-btn" onclick="Android.logout()">Sair</button>
+                </div>
+                
+                <h1>Kiddo</h1>
+                <div class="slogan">Criando hábitos, formando vencedores</div>
+                
+                <div class="stats-bar">
+                    <div class="stat">
+                        <div class="stat-label">XP Hoje</div>
+                        <div class="stat-value" id="dailyXP">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">XP Total</div>
+                        <div class="stat-value" id="totalXP">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Sequência</div>
+                        <div class="stat-value" id="streak">0 🔥</div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                    <div class="progress-label" id="progressLabel">0 XP</div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="date-selector">
+                    <h3>📅 Selecione o Dia</h3>
+                    <div class="date-nav">
+                        <button onclick="changeDate(-1)">◀</button>
+                        <div class="current-date">
+                            <div id="currentDate"></div>
+                            <div class="mode-badge" id="modeBadge">SEMANA</div>
+                        </div>
+                        <button onclick="changeDate(1)" id="nextButton">▶</button>
+                    </div>
+                    
+                    <div class="mode-toggle">
+                        <div class="toggle-label">
+                            <span>🌴</span>
+                            <span id="toggleText">Modo Fim de Semana</span>
+                            <span id="manualIndicator" style="font-size: 10px; color: #718096; display: none;">(Manual)</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button class="auto-button" id="autoButton" style="display: none;" onclick="resetToAuto()">Automático</button>
+                            <div class="toggle-switch" id="modeToggle" onclick="toggleMode()">
+                                <div class="toggle-switch-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="questBlocks"></div>
+                
+                <div class="reward-section">
+                    <h3>🏆 CONQUISTAS DISPONÍVEIS 🏆</h3>
+                    <div class="rewards-grid" id="rewardsGrid"></div>
+                </div>
+                
+                <div class="bonus-banner">
+                    <div>💡 BÔNUS DE SEQUÊNCIA 💡</div>
+                    <div class="streak">Complete tudo por 7 dias seguidos!</div>
+                    <div>Ganhe +100 XP extras! 🌟</div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-button export-button" onclick="exportData()">📊 Exportar Dados</button>
+                    <button class="action-button reset-button" onclick="resetProgress()">🔄 Resetar Progresso</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- fim appScreen -->
+
+    <!-- ====== DRAWER OVERLAY ====== -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+    <!-- ====== MENU LATERAL ====== -->
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <div class="drawer-avatar-big" id="drawerAvatarBig">K</div>
+            <div class="drawer-user-info">
+                <div class="drawer-user-name" id="drawerUserName">Usuário</div>
+                <div class="drawer-user-email" id="drawerUserEmail"></div>
+            </div>
+            <button class="drawer-close" onclick="closeDrawer()">✕</button>
+        </div>
+        <nav class="drawer-nav">
+            <button class="drawer-item" onclick="openPanel('account')">
+                <div class="drawer-item-icon blue">👤</div>
+                Conta
+            </button>
+            <button class="drawer-item" onclick="openPanel('progress')">
+                <div class="drawer-item-icon purple">📊</div>
+                Visualizar Progresso
+            </button>
+            <button class="drawer-item" onclick="openPanel('contact')">
+                <div class="drawer-item-icon green">💬</div>
+                Fale Conosco
+            </button>
+            <div class="drawer-divider"></div>
+            <button class="drawer-item danger" onclick="closeDrawer(); Android.logout()">
+                <div class="drawer-item-icon red">🚪</div>
+                Sair
+            </button>
+        </nav>
+    </div>
+
+    <!-- ====== PAINEL: CONTA ====== -->
+    <div class="side-panel" id="panelAccount">
+        <div class="side-panel-header">
+            <button class="side-panel-back" onclick="closePanel('account')">◀</button>
+            <span class="side-panel-title">👤 Conta</span>
+        </div>
+        <div class="side-panel-body">
+            <div class="panel-section">
+                <div class="panel-section-label">Foto de Perfil</div>
+                <div class="avatar-picker" id="avatarPicker">
+                    <div class="avatar-option selected" data-avatar="😊" onclick="selectAvatar(this)">😊</div>
+                    <div class="avatar-option" data-avatar="🦁" onclick="selectAvatar(this)">🦁</div>
+                    <div class="avatar-option" data-avatar="🐯" onclick="selectAvatar(this)">🐯</div>
+                    <div class="avatar-option" data-avatar="🦊" onclick="selectAvatar(this)">🦊</div>
+                    <div class="avatar-option" data-avatar="🐸" onclick="selectAvatar(this)">🐸</div>
+                    <div class="avatar-option" data-avatar="🦄" onclick="selectAvatar(this)">🦄</div>
+                    <div class="avatar-option" data-avatar="🐼" onclick="selectAvatar(this)">🐼</div>
+                    <div class="avatar-option" data-avatar="🐨" onclick="selectAvatar(this)">🐨</div>
+                    <div class="avatar-option" data-avatar="🦋" onclick="selectAvatar(this)">🦋</div>
+                    <div class="avatar-option" data-avatar="⭐" onclick="selectAvatar(this)">⭐</div>
+                </div>
+            </div>
+            <div class="panel-section">
+                <div class="panel-section-label">Informações</div>
+                <div class="panel-field">
+                    <label>Nome da Criança</label>
+                    <input type="text" id="accountName" placeholder="Nome">
+                </div>
+                <div class="panel-field">
+                    <label>E-mail ou Usuário</label>
+                    <input type="text" id="accountEmail" placeholder="E-mail/usuário" readonly style="background:#f7fafc;color:#718096">
+                </div>
+                <button class="panel-btn primary" onclick="saveAccountInfo()">💾 Salvar Informações</button>
+            </div>
+            <div class="panel-section">
+                <div class="panel-section-label">Alterar Senha</div>
+                <div class="panel-field">
+                    <label>Senha Atual</label>
+                    <input type="password" id="currentPassword" placeholder="••••">
+                </div>
+                <div class="panel-field">
+                    <label>Nova Senha</label>
+                    <input type="password" id="newPassword" placeholder="••••">
+                </div>
+                <div class="panel-field">
+                    <label>Confirmar Nova Senha</label>
+                    <input type="password" id="confirmNewPassword" placeholder="••••">
+                </div>
+                <button class="panel-btn primary" onclick="changePassword()">🔐 Alterar Senha</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== PAINEL: PROGRESSO ====== -->
+    <div class="side-panel" id="panelProgress">
+        <div class="side-panel-header">
+            <button class="side-panel-back" onclick="closePanel('progress')">◀</button>
+            <span class="side-panel-title">📊 Progresso</span>
+        </div>
+        <div class="side-panel-body">
+            <div class="chart-toggle">
+                <button class="chart-toggle-btn active" id="btnWeek" onclick="switchChart('week')">Semana</button>
+                <button class="chart-toggle-btn" id="btnMonth" onclick="switchChart('month')">Mês</button>
+            </div>
+            <div class="chart-container">
+                <div class="chart-bars" id="chartBars"></div>
+                <div style="display:flex;gap:6px;margin-top:4px" id="chartLabels"></div>
+            </div>
+            <div class="chart-stats" id="chartStats"></div>
+        </div>
+    </div>
+
+    <!-- ====== PAINEL: FALE CONOSCO ====== -->
+    <div class="side-panel" id="panelContact">
+        <div class="side-panel-header">
+            <button class="side-panel-back" onclick="closePanel('contact')">◀</button>
+            <span class="side-panel-title">💬 Fale Conosco</span>
+        </div>
+        <div class="side-panel-body">
+            <a class="contact-card" href="https://wa.me/5591999999999?text=Olá!%20Preciso%20de%20ajuda%20com%20o%20Kiddo." target="_blank">
+                <div class="contact-icon">💬</div>
+                <div class="contact-title">WhatsApp Kiddo</div>
+                <div class="contact-sub">Toque para abrir e falar com nossa equipe</div>
+            </a>
+            <div class="panel-msg">
+                🕐 <strong>Horário de atendimento:</strong><br>
+                Segunda a Sexta, das 9h às 18h.<br><br>
+                Responderemos o mais rápido possível! 🚀
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== AUTHENTICATION SYSTEM ====================
+        
+        const AUTH_STORAGE_KEY = 'kiddo_users';
+        const SESSION_STORAGE_KEY = 'kiddo_session';
+        let currentUser = null;
+
+        // Simple hash function (síncrona - funciona sem HTTPS)
+        function hashPassword(password) {
+            let hash = 0;
+            const str = password + 'kiddo_salt_2024';
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(36);
+        }
+
+        function getUsers() {
+            const users = localStorage.getItem(AUTH_STORAGE_KEY);
+            return users ? JSON.parse(users) : {};
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(users));
+        }
+
+        function saveSession(userId, remember = false) {
+            const session = {
+                userId,
+                timestamp: Date.now(),
+                remember
+            };
+            
+            if (remember) {
+                localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
+            } else {
+                sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
+            }
+        }
+
+        function getSession() {
+            let session = sessionStorage.getItem(SESSION_STORAGE_KEY);
+            if (!session) {
+                session = localStorage.getItem(SESSION_STORAGE_KEY);
+            }
+            return session ? JSON.parse(session) : null;
+        }
+
+        function clearSession() {
+            sessionStorage.removeItem(SESSION_STORAGE_KEY);
+            localStorage.removeItem(SESSION_STORAGE_KEY);
+        }
+
+        function showLoading(text) {
+            const el = document.getElementById('loadingOverlay');
+            if (!el) return;
+            const txt = document.getElementById('loadingText');
+            if (txt && text) txt.textContent = text;
+            el.classList.add('show');
+        }
+        function hideLoading() {
+            const el = document.getElementById('loadingOverlay');
+            if (el) el.classList.remove('show');
+        }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelectorAll('.auth-tab')[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelectorAll('.auth-tab')[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.classList.add('show');
+                const input = element.previousElementSibling;
+                if (input && input.tagName === 'INPUT') {
+                    input.classList.add('error');
+                } else if (input && input.classList.contains('password-toggle')) {
+                    input.querySelector('input').classList.add('error');
+                }
+            }
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.classList.remove('show');
+                el.textContent = '';
+            });
+            document.querySelectorAll('input').forEach(input => {
+                input.classList.remove('error');
+            });
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim().toLowerCase();
+            const password = document.getElementById('registerPassword').value;
+            const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
+
+            // Validation
+            if (name.length < 2) {
+                showError('registerNameError', 'Nome muito curto');
+                return;
+            }
+
+            if (email.length < 3) {
+                showError('registerEmailError', 'E-mail/usuário muito curto');
+                return;
+            }
+
+            if (password.length < 4) {
+                showError('registerPasswordError', 'Senha deve ter no mínimo 4 caracteres');
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                showError('registerPasswordConfirmError', 'As senhas não conferem');
+                return;
+            }
+
+            // Check if user already exists
+            const users = getUsers();
+            if (users[email]) {
+                showError('registerEmailError', 'Este e-mail/usuário já está cadastrado');
+                return;
+            }
+
+            // Create user
+            const passwordHash = hashPassword(password);
+            users[email] = {
+                name,
+                email,
+                passwordHash,
+                createdAt: new Date().toISOString(),
+                data: {
+                    progress: {},
+                    totalXP: 0,
+                    streakCount: 0,
+                    lastCompletedDate: null,
+                    customQuests: JSON.parse(JSON.stringify(defaultQuests))
+                }
+            };
+
+            saveUsers(users);
+            
+            // Auto login
+            currentUser = users[email];
+            saveSession(email, false);
+            
+            showCelebration('✅ Conta Criada!', `Bem-vindo(a), ${name}!`);
+            
+            setTimeout(() => {
+                loadUserData();
+                showApp();
+            }, 1500);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+            const remember = document.getElementById('rememberMe').checked;
+
+            const users = getUsers();
+            const user = users[email];
+
+            if (!user) {
+                showError('loginEmailError', 'Usuário não encontrado');
+                return;
+            }
+
+            const passwordHash = hashPassword(password);
+            if (passwordHash !== user.passwordHash) {
+                showError('loginPasswordError', 'Senha incorreta');
+                return;
+            }
+
+            // Login successful
+            currentUser = user;
+            saveSession(email, remember);
+            
+            loadUserData();
+            showApp();
+        }
+
+        function handleLogout() {
+            if (confirm('Deseja realmente sair?')) {
+                saveUserData();
+                clearSession();
+                currentUser = null;
+                if (window.App && typeof window.App.exitApp === 'function') {
+                    try { window.App.exitApp(); } catch (e) { showAuth(); }
+                } else {
+                    showAuth();
+                }
+            }
+        }
+
+        function updateSidebarUser() {
+            if (!currentUser) return;
+            try {
+                const name = currentUser.name || 'Usuário';
+                const email = currentUser.email || '';
+                // Se o avatar for URL (Google) ou Emoji, o textContent exibe texto.
+                // Para exibir imagem corretamente precisaríamos detectar URL.
+                // Por enquanto mantemos compatibilidade com o CSS existente.
+                const avatar = currentUser.avatar || name.charAt(0).toUpperCase();
+
+                const dName = document.getElementById('drawerUserName');
+                const dEmail = document.getElementById('drawerUserEmail');
+                const dAv = document.getElementById('drawerAvatarBig');
+                
+                // Atualiza Header também para garantir
+                const hName = document.getElementById('userName');
+                const hAv = document.getElementById('userAvatar');
+
+                if (dName) dName.textContent = name;
+                if (dEmail) dEmail.textContent = email;
+                if (dAv) dAv.textContent = avatar;
+
+                if (hName) hName.textContent = name;
+                if (hAv) hAv.textContent = avatar;
+                
+                console.log('Sidebar/User UI updated for:', name);
+            } catch (e) {
+                console.error('Error updating sidebar:', e);
+            }
+        }
+
+        function refreshUserUI() {
+            try {
+                if (currentUser) {
+                    updateSidebarUser();
+                } else {
+                    const hName = document.getElementById('userName');
+                    if (hName) hName.textContent = 'Usuário';
+                    const hAv = document.getElementById('userAvatar');
+                    if (hAv) hAv.textContent = 'K';
+                    const dName = document.getElementById('drawerUserName');
+                    if (dName) dName.textContent = 'Usuário';
+                    const dEmail = document.getElementById('drawerUserEmail');
+                    if (dEmail) dEmail.textContent = '';
+                    const dAv = document.getElementById('drawerAvatarBig');
+                    if (dAv) dAv.textContent = 'K';
+                }
+            } catch (e) {}
+        }
+
+        // Listeners para garantir atualização
+// Listeners para garantir atualização
+window.addEventListener("kiddoUserChanged", function () {
+    console.log('Event: kiddoUserChanged received');
+
+    if (window.currentUser) {
+        currentUser = window.currentUser;
+        saveSession(currentUser.email, true);
+        loadUserData();
+        showApp();
+    }
+
+    updateSidebarUser();
+});
+        document.addEventListener("DOMContentLoaded", function () {
+             updateSidebarUser();
+        });
+
+        function showAuth() {
+            document.getElementById('authScreen').classList.remove('hidden');
+            document.getElementById('appScreen').classList.add('hidden');
+        }
+
+        function showApp() {
+            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('appScreen').classList.remove('hidden');
+            if (typeof refreshUserUI === 'function') refreshUserUI();
+            
+            // Solicita permissão de notificação (Web) ao entrar no app
+            if (!window.Android && 'Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+
+            // Agenda notificações inteligentes (Boas-vindas, Streak ou 24h)
+            scheduleSmartNotifications();
+        }
+
+        function loadUserData() {
+            if (!currentUser || !currentUser.data) return;
+            
+            progress = currentUser.data.progress || {};
+            totalXP = currentUser.data.totalXP || 0;
+            streakCount = currentUser.data.streakCount || 0;
+            lastCompletedDate = currentUser.data.lastCompletedDate || null;
+            quests = currentUser.data.customQuests || JSON.parse(JSON.stringify(defaultQuests));
+            
+            render();
+        }
+
+        function saveUserData() {
+            if (!currentUser) return;
+            
+            const users = getUsers();
+            if (users[currentUser.email]) {
+                users[currentUser.email].data = {
+                    progress,
+                    totalXP,
+                    streakCount,
+                    lastCompletedDate,
+                    customQuests: quests
+                };
+                saveUsers(users);
+            }
+        }
+
+        // Auto-save every 30 seconds
+        setInterval(() => {
+            if (currentUser) {
+                saveUserData();
+            }
+        }, 30000);
+
+        // Save on page unload
+        window.addEventListener('beforeunload', () => {
+            if (currentUser) {
+                saveUserData();
+            }
+        });
+
+        // Check for existing session on load
+        function checkSession() {
+            const session = getSession();
+            if (session) {
+                const users = getUsers();
+                const user = users[session.userId];
+                
+                if (user) {
+                    currentUser = user;
+                    loadUserData();
+                    showApp();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // ==================== END AUTHENTICATION ====================
+
+        // Sound Effects
+        const sounds = {
+            complete: () => {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    oscillator.frequency.value = 800;
+                    oscillator.type = 'sine';
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                } catch (e) {}
+            },
+            bigWin: () => {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    [523, 659, 784, 1047].forEach((freq, i) => {
+                        setTimeout(() => {
+                            const osc = audioContext.createOscillator();
+                            const gain = audioContext.createGain();
+                            osc.connect(gain);
+                            gain.connect(audioContext.destination);
+                            osc.frequency.value = freq;
+                            osc.type = 'sine';
+                            gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+                            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                            osc.start(audioContext.currentTime);
+                            osc.stop(audioContext.currentTime + 0.5);
+                        }, i * 150);
+                    });
+                } catch (e) {}
+            }
+        };
+
+        // BLOCK DEFINITIONS
+        const BLOCKS = {
+            prep: { title: 'Preparação do Dia', icon: '☀️' },
+            resp: { title: 'Responsabilidades', icon: '🎒' },
+            space: { title: 'Cuidado com o Espaço', icon: '🧹' },
+            dev: { title: 'Desenvolvimento Pessoal', icon: '📚' },
+            close: { title: 'Encerramento do Dia', icon: '🌙' }
+        };
+
+        const BLOCK_ORDER = ['prep', 'resp', 'space', 'dev', 'close'];
+
+        // DEFAULT QUESTS
+        let questIdCounter = 100;
+        
+        const defaultQuests = {
+            week: {
+                prep: [
+                    { id: 'breakfast', text: 'Tomar café da manhã', xp: 5 },
+                    { id: 'brush1', text: 'Escovar os dentes', xp: 10 },
+                    { id: 'dress', text: 'Vestir a roupa da escola', xp: 5 },
+                    { id: 'hair', text: 'Pentear o cabelo', xp: 5 }
+                ],
+                resp: [
+                    { id: 'backpack', text: 'Arrumar a mochila', xp: 10 },
+                    { id: 'check', text: 'Checar se trouxe tudo da escola', xp: 10 },
+                    { id: 'homework', text: 'Fazer lição de casa', xp: 15 }
+                ],
+                space: [
+                    { id: 'dishes', text: 'Colocar o prato na pia', xp: 5 },
+                    { id: 'shoes', text: 'Guardar sapatos na sapateira', xp: 5 },
+                    { id: 'laundry', text: 'Guardar roupa suja no cesto', xp: 5 },
+                    { id: 'towel', text: 'Guardar a toalha no lugar', xp: 5 }
+                ],
+                dev: [
+                    { id: 'read', text: 'Ler um livro', xp: 15 },
+                    { id: 'diary', text: 'Escrever o diário', xp: 15 }
+                ],
+                close: [
+                    { id: 'shower', text: 'Tomar banho', xp: 10 },
+                    { id: 'brush2', text: 'Escovar os dentes', xp: 10 },
+                    { id: 'sleep', text: 'Ir dormir no horário', xp: 10 }
+                ]
+            },
+            weekend: {
+                prep: [
+                    { id: 'wk_breakfast', text: 'Tomar café da manhã', xp: 5 },
+                    { id: 'wk_brush', text: 'Escovar os dentes', xp: 10 }
+                ],
+                resp: [
+                    { id: 'wk_help', text: 'Ajudar em casa', xp: 15 },
+                    { id: 'wk_organize', text: 'Organizar brinquedos', xp: 10 }
+                ],
+                space: [
+                    { id: 'wk_room', text: 'Arrumar o quarto', xp: 15 },
+                    { id: 'wk_dishes', text: 'Ajudar a lavar louça', xp: 10 }
+                ],
+                dev: [
+                    { id: 'wk_read', text: 'Ler um livro', xp: 15 },
+                    { id: 'wk_hobby', text: 'Praticar hobby', xp: 15 },
+                    { id: 'wk_family', text: 'Tempo em família', xp: 20 }
+                ],
+                close: [
+                    { id: 'wk_shower', text: 'Tomar banho', xp: 10 },
+                    { id: 'wk_brush2', text: 'Escovar os dentes', xp: 10 },
+                    { id: 'wk_sleep', text: 'Ir dormir no horário', xp: 10 }
+                ]
+            }
+        };
+
+        // App State
+        let quests = JSON.parse(JSON.stringify(defaultQuests));
+        let currentDateIndex = 0;
+        let progress = {};
+        let totalXP = 0;
+        let streakCount = 0;
+        let lastCompletedDate = null;
+        let editingQuest = null;
+
+        const rewards = [
+            { id: 'bronze', icon: '🥉', name: 'Conquista Inicial', cost: 1000 },
+            { id: 'silver', icon: '🥈', name: 'Conquista Especial', cost: 2000 },
+            { id: 'gold', icon: '🥇', name: 'Grande Conquista', cost: 4000 },
+            { id: 'trophy', icon: '🏆', name: 'Conquista Lendária', cost: 8000 }
+        ];
+
+        // Date Functions
+        function getDateString(offset = 0) {
+            const date = new Date();
+            date.setDate(date.getDate() + offset);
+            return date.toISOString().split('T')[0];
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString + 'T00:00:00');
+            const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+            const months = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+            return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}`;
+        }
+
+        function isWeekend(dateString) {
+            const date = new Date(dateString + 'T00:00:00');
+            const day = date.getDay();
+            return day === 0 || day === 6;
+        }
+
+        function getActiveMode(dateKey) {
+            if (progress[dateKey]?.modeOverride) {
+                return progress[dateKey].modeOverride;
+            }
+            return isWeekend(dateKey) ? 'weekend' : 'week';
+        }
+
+        function changeDate(direction) {
+            currentDateIndex += direction;
+            document.getElementById('nextButton').disabled = currentDateIndex >= 0;
+            render();
+        }
+
+        // Mode Toggle Functions
+        function toggleMode() {
+            const dateKey = getDateString(currentDateIndex);
+            
+            if (!progress[dateKey]) {
+                progress[dateKey] = {};
+            }
+            
+            const currentMode = getActiveMode(dateKey);
+            const newMode = currentMode === 'week' ? 'weekend' : 'week';
+            
+            progress[dateKey].modeOverride = newMode;
+            saveUserData();
+            render();
+        }
+
+        function resetToAuto() {
+            const dateKey = getDateString(currentDateIndex);
+            
+            if (progress[dateKey]) {
+                delete progress[dateKey].modeOverride;
+                saveUserData();
+                render();
+            }
+        }
+
+        // Quest Functions
+        function toggleQuest(blockId, questId) {
+            const dateKey = getDateString(currentDateIndex);
+            const mode = getActiveMode(dateKey);
+            
+            if (!progress[dateKey]) {
+                progress[dateKey] = {};
+            }
+            if (!progress[dateKey][mode]) {
+                progress[dateKey][mode] = {};
+            }
+            if (!progress[dateKey][mode][blockId]) {
+                progress[dateKey][mode][blockId] = {};
+            }
+            
+            const currentState = progress[dateKey][mode][blockId][questId] || false;
+            progress[dateKey][mode][blockId][questId] = !currentState;
+            
+            const quest = quests[mode][blockId].find(q => q.id === questId);
+            
+            if (!currentState) {
+                totalXP += quest.xp;
+                sounds.complete();
+                showCelebration(`+${quest.xp} XP!`, quest.text);
+                
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+            } else {
+                totalXP -= quest.xp;
+            }
+            
+            checkDailyCompletion(dateKey);
+            saveUserData();
+            render();
+        }
+
+        function checkDailyCompletion(dateKey) {
+            const mode = getActiveMode(dateKey);
+            
+            const allComplete = BLOCK_ORDER.every(blockId => {
+                const blockQuests = quests[mode][blockId] || [];
+                return blockQuests.every(q => progress[dateKey]?.[mode]?.[blockId]?.[q.id]);
+            });
+            
+            if (allComplete && BLOCK_ORDER.some(blockId => quests[mode][blockId].length > 0)) {
+                updateStreak(dateKey);
+            }
+        }
+
+        function updateStreak(dateKey) {
+            const yesterday = new Date(dateKey);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayKey = yesterday.toISOString().split('T')[0];
+            
+            if (lastCompletedDate === yesterdayKey) {
+                streakCount++;
+                if (streakCount === 7) {
+                    totalXP += 100;
+                    sounds.bigWin();
+                    showCelebration('🎊 BÔNUS DE SEQUÊNCIA! 🎊', '+100 XP por 7 dias completos!');
+                    streakCount = 0;
+                    
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate([100, 50, 100, 50, 100]);
+                    }
+                }
+            } else if (lastCompletedDate !== dateKey) {
+                streakCount = 1;
+            }
+            
+            lastCompletedDate = dateKey;
+            saveUserData();
+        }
+
+        function showCelebration(title, text) {
+            const celebration = document.getElementById('celebration');
+            const overlay = document.getElementById('overlay');
+            
+            celebration.querySelector('h2').textContent = title;
+            document.getElementById('celebrationText').textContent = text;
+            
+            celebration.classList.add('show');
+            overlay.classList.add('show');
+            
+            setTimeout(() => {
+                celebration.classList.remove('show');
+                overlay.classList.remove('show');
+            }, 2000);
+        }
+
+        function editQuest(mode, blockId, questId) {
+            editingQuest = { mode, blockId, questId };
+            render();
+        }
+
+        function saveQuestEdit(mode, blockId, questId, newText) {
+            const quest = quests[mode][blockId].find(q => q.id === questId);
+            if (quest && newText.trim()) {
+                quest.text = newText.trim();
+                saveUserData();
+            }
+            editingQuest = null;
+            render();
+        }
+
+        function deleteQuest(mode, blockId, questId) {
+            if (confirm('Tem certeza que quer remover este hábito?')) {
+                quests[mode][blockId] = quests[mode][blockId].filter(q => q.id !== questId);
+                saveUserData();
+                render();
+            }
+        }
+
+        function addNewQuest(mode, blockId) {
+            const newQuest = {
+                id: 'custom_' + (++questIdCounter),
+                text: 'Novo hábito',
+                xp: 10
+            };
+            quests[mode][blockId].push(newQuest);
+            saveUserData();
+            editingQuest = { mode, blockId, questId: newQuest.id };
+            render();
+        }
+
+        // Render Functions
+        function renderQuestBlocks() {
+            const dateKey = getDateString(currentDateIndex);
+            const mode = getActiveMode(dateKey);
+            const container = document.getElementById('questBlocks');
+            
+            container.innerHTML = BLOCK_ORDER.map(blockId => {
+                const block = BLOCKS[blockId];
+                const blockQuests = quests[mode][blockId] || [];
+                const completed = blockQuests.filter(q => 
+                    progress[dateKey]?.[mode]?.[blockId]?.[q.id]).length;
+                
+                const questsHTML = blockQuests.map(quest => {
+                    const isCompleted = progress[dateKey]?.[mode]?.[blockId]?.[quest.id] || false;
+                    const isEditing = editingQuest?.mode === mode && 
+                                     editingQuest?.blockId === blockId && 
+                                     editingQuest?.questId === quest.id;
+                    
+                    return `
+                        <div class="quest-item ${isCompleted ? 'completed' : ''} ${isEditing ? 'editing' : ''}">
+                            <div class="checkbox" onclick="toggleQuest('${blockId}', '${quest.id}')"></div>
+                            ${isEditing ? 
+                                `<input type="text" class="quest-text-input" value="${quest.text}" 
+                                    onblur="saveQuestEdit('${mode}', '${blockId}', '${quest.id}', this.value)"
+                                    onkeypress="if(event.key==='Enter') this.blur()"
+                                    autofocus>` :
+                                `<div class="quest-text" ondblclick="editQuest('${mode}', '${blockId}', '${quest.id}')">${quest.text}</div>`
+                            }
+                            <div class="xp-badge">+${quest.xp} XP</div>
+                            <div class="quest-actions">
+                                <button class="action-btn" onclick="editQuest('${mode}', '${blockId}', '${quest.id}')" title="Editar">✏️</button>
+                                <button class="action-btn delete" onclick="deleteQuest('${mode}', '${blockId}', '${quest.id}')" title="Remover">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                return `
+                    <div class="quest-section ${blockId}">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <span>${block.icon}</span>
+                                <span>${block.title}</span>
+                            </div>
+                            <div class="section-progress">${completed}/${blockQuests.length}</div>
+                        </div>
+                        <div>${questsHTML}</div>
+                        <button class="add-quest-btn" onclick="addNewQuest('${mode}', '${blockId}')">➕ Adicionar Novo Hábito</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateProgress() {
+            const dateKey = getDateString(currentDateIndex);
+            const mode = getActiveMode(dateKey);
+            
+            let dailyXP = 0;
+            let maxDaily = 0;
+            
+            BLOCK_ORDER.forEach(blockId => {
+                const blockQuests = quests[mode][blockId] || [];
+                blockQuests.forEach(quest => {
+                    maxDaily += quest.xp;
+                    if (progress[dateKey]?.[mode]?.[blockId]?.[quest.id]) {
+                        dailyXP += quest.xp;
+                    }
+                });
+            });
+            
+            document.getElementById('dailyXP').textContent = dailyXP;
+            document.getElementById('totalXP').textContent = totalXP;
+            document.getElementById('streak').textContent = `${streakCount} 🔥`;
+            
+            const percentage = maxDaily > 0 ? Math.min((dailyXP / maxDaily) * 100, 100) : 0;
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = `${percentage}%`;
+            const progressLabel = document.getElementById('progressLabel');
+            if (progressLabel) {
+                progressLabel.textContent = maxDaily > 0 ? `${dailyXP} / ${maxDaily} XP` : '0 XP';
+            }
+            progressBar.textContent = '';
+        }
+
+        function updateModeUI() {
+            const dateKey = getDateString(currentDateIndex);
+            const mode = getActiveMode(dateKey);
+            const hasOverride = progress[dateKey]?.modeOverride !== undefined;
+            
+            const badge = document.getElementById('modeBadge');
+            badge.textContent = mode === 'weekend' ? 'FIM DE SEMANA' : 'SEMANA';
+            badge.className = `mode-badge ${mode}`;
+            
+            const toggle = document.getElementById('modeToggle');
+            if (mode === 'weekend') {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+            }
+            
+            document.getElementById('manualIndicator').style.display = hasOverride ? 'inline' : 'none';
+            document.getElementById('autoButton').style.display = hasOverride ? 'block' : 'none';
+            
+            document.getElementById('toggleText').textContent = 
+                hasOverride ? 'Modo Fim de Semana (Manual)' : 'Modo Fim de Semana';
+        }
+
+        function renderRewards() {
+            const container = document.getElementById('rewardsGrid');
+            container.innerHTML = rewards.map(reward => {
+                const canAfford = totalXP >= reward.cost;
+                return `
+                    <div class="reward-item ${canAfford ? 'available' : ''}">
+                        <div class="reward-icon">${reward.icon}</div>
+                        <div class="reward-name">${reward.name}</div>
+                        <div class="reward-cost">${reward.cost} XP</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function render() {
+            const dateKey = getDateString(currentDateIndex);
+            document.getElementById('currentDate').textContent = formatDate(dateKey);
+            
+            updateModeUI();
+            renderQuestBlocks();
+            updateProgress();
+            renderRewards();
+        }
+
+        // Data Management
+        function exportData() {
+            if (!currentUser) return;
+            
+            const data = {
+                userName: currentUser.name,
+                userEmail: currentUser.email,
+                progress,
+                totalXP,
+                streakCount,
+                lastCompletedDate,
+                customQuests: quests,
+                exportDate: new Date().toISOString(),
+                version: '3.0.0'
+            };
+            
+            const jsonStr = JSON.stringify(data, null, 2);
+            const fileName = `kiddo-${currentUser.name}-${new Date().toISOString().split('T')[0]}.json`;
+
+            if (window.Android && Android.exportFile) {
+                Android.exportFile(fileName, jsonStr);
+                return;
+            }
+            
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showCelebration('✅ Dados Exportados!', 'Backup salvo com sucesso');
+        }
+
+        function resetProgress() {
+            if (confirm('Tem certeza que quer resetar TODO o progresso? Isso não pode ser desfeito!')) {
+                if (confirm('ÚLTIMA CHANCE! Todos os dados serão apagados permanentemente.')) {
+                    progress = {};
+                    totalXP = 0;
+                    streakCount = 0;
+                    lastCompletedDate = null;
+                    currentDateIndex = 0;
+                    quests = JSON.parse(JSON.stringify(defaultQuests));
+                    
+                    saveUserData();
+                    render();
+                    showCelebration('🔄 Reset Completo', 'Todos os dados foram apagados');
+                }
+            }
+        }
+
+        // Initialize
+        if (!checkSession()) {
+            showAuth();
+        }
+
+        // Prevent double-tap zoom on mobile
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // ==================== DRAWER & SIDE PANELS ====================
+
+        let currentAvatar = '😊';
+        let chartMode = 'week';
+
+        function openDrawer() {
+            if (!currentUser) return;
+            const avatar = currentUser.avatar || currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('drawerAvatarBig').textContent = avatar;
+            document.getElementById('drawerUserName').textContent = currentUser.name;
+            document.getElementById('drawerUserEmail').textContent = currentUser.email;
+            document.getElementById('drawer').classList.add('open');
+            document.getElementById('drawerOverlay').classList.add('open');
+        }
+
+        function closeDrawer() {
+            document.getElementById('drawer').classList.remove('open');
+            document.getElementById('drawerOverlay').classList.remove('open');
+            closePanel('account');
+            closePanel('progress');
+            closePanel('contact');
+        }
+
+        function openPanel(name) {
+            closeDrawer();
+            document.getElementById('drawerOverlay').classList.add('open');
+            document.getElementById(`panel${name.charAt(0).toUpperCase()+name.slice(1)}`).classList.add('open');
+
+            if (name === 'account') loadAccountPanel();
+            if (name === 'progress') { chartMode = 'week'; renderChart(); }
+        }
+
+        function closePanel(name) {
+            const panel = document.getElementById(`panel${name.charAt(0).toUpperCase()+name.slice(1)}`);
+            if (panel) panel.classList.remove('open');
+            const anyOpen = ['panelAccount','panelProgress','panelContact']
+                .some(id => document.getElementById(id)?.classList.contains('open'));
+            if (!anyOpen) document.getElementById('drawerOverlay').classList.remove('open');
+        }
+
+        // ---- CONTA ----
+        function loadAccountPanel() {
+            if (!currentUser) return;
+            document.getElementById('accountName').value = currentUser.name;
+            document.getElementById('accountEmail').value = currentUser.email;
+            currentAvatar = currentUser.avatar || '😊';
+            document.querySelectorAll('.avatar-option').forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.avatar === currentAvatar);
+            });
+
+            const hasPass = !!currentUser.passwordHash;
+            const currField = document.getElementById('currentPassword')?.parentElement;
+            if (currField) currField.style.display = hasPass ? 'block' : 'none';
+
+            const cp = document.getElementById('currentPassword');
+            const np = document.getElementById('newPassword');
+            const rp = document.getElementById('confirmNewPassword');
+            if (cp) cp.value = '';
+            if (np) np.value = '';
+            if (rp) rp.value = '';
+        }
+
+        function selectAvatar(el) {
+            document.querySelectorAll('.avatar-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            currentAvatar = el.dataset.avatar;
+        }
+
+        function saveAccountInfo() {
+            if (!currentUser) return;
+            const newName = document.getElementById('accountName').value.trim();
+            if (!newName || newName.length < 2) { alert('Nome muito curto!'); return; }
+
+            const users = getUsers();
+            if (users[currentUser.email]) {
+                users[currentUser.email].name = newName;
+                users[currentUser.email].avatar = currentAvatar;
+                saveUsers(users);
+                currentUser.name = newName;
+                currentUser.avatar = currentAvatar;
+
+                // Atualiza header
+                document.getElementById('userName').textContent = newName;
+                const av = document.getElementById('userAvatar');
+                av.textContent = currentAvatar;
+
+                showCelebration('✅ Salvo!', 'Informações atualizadas');
+                setTimeout(() => closePanel('account'), 1600);
+            }
+        }
+
+        function changePassword() {
+            if (!currentUser) return;
+            const curr = document.getElementById('currentPassword').value;
+            const next = document.getElementById('newPassword').value;
+            const conf = document.getElementById('confirmNewPassword').value;
+
+            const hasPass = !!currentUser.passwordHash;
+
+            if (next.length < 4) { alert('A nova senha deve ter no mínimo 4 caracteres!'); return; }
+            if (next !== conf) { alert('As senhas não conferem!'); return; }
+            if (hasPass && hashPassword(curr) !== currentUser.passwordHash) { alert('Senha atual incorreta!'); return; }
+
+            const users = getUsers();
+            if (users[currentUser.email]) {
+                users[currentUser.email].passwordHash = hashPassword(next);
+                saveUsers(users);
+                currentUser.passwordHash = users[currentUser.email].passwordHash;
+            }
+
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+
+            showCelebration('🔐 Senha alterada!', hasPass ? 'Sua senha foi atualizada com sucesso' : 'Senha definida com sucesso');
+            setTimeout(() => closePanel('account'), 1600);
+        }
+
+        // ---- GRÁFICO ----
+        function switchChart(mode) {
+            chartMode = mode;
+            document.getElementById('btnWeek').classList.toggle('active', mode === 'week');
+            document.getElementById('btnMonth').classList.toggle('active', mode === 'month');
+            renderChart();
+        }
+
+        function getDailyXP(dateKey) {
+            if (!progress[dateKey]) return 0;
+            let xp = 0;
+            const mode = getActiveMode(dateKey);
+            BLOCK_ORDER.forEach(blockId => {
+                (quests[mode][blockId] || []).forEach(q => {
+                    if (progress[dateKey]?.[mode]?.[blockId]?.[q.id]) xp += q.xp;
+                });
+            });
+            return xp;
+        }
+
+        function renderChart() {
+            const barsEl   = document.getElementById('chartBars');
+            const statsEl  = document.getElementById('chartStats');
+            const today = new Date();
+            let labels = [], values = [];
+
+            if (chartMode === 'week') {
+                const dayNames = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+                for (let i = 6; i >= 0; i--) {
+                    const d = new Date(today); d.setDate(today.getDate() - i);
+                    const key = d.toISOString().split('T')[0];
+                    labels.push(dayNames[d.getDay()]);
+                    values.push(getDailyXP(key));
+                }
+            } else {
+                const daysInMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const d = new Date(today.getFullYear(), today.getMonth(), i);
+                    const key = d.toISOString().split('T')[0];
+                    labels.push(i % 5 === 1 ? String(i) : '');
+                    values.push(getDailyXP(key));
+                }
+            }
+
+            const maxVal = Math.max(...values, 1);
+            const sum    = values.reduce((a,b) => a+b, 0);
+            const avg    = values.filter(v=>v>0).length > 0 
+                            ? Math.round(sum / values.filter(v=>v>0).length) : 0;
+            const best   = Math.max(...values);
+            const daysOk = values.filter(v => v > 0).length;
+
+            barsEl.innerHTML = values.map((v, i) => `
+                <div class="chart-bar-wrap">
+                    <div class="chart-bar-value">${v > 0 ? v : ''}</div>
+                    <div class="chart-bar" style="height:${Math.round((v/maxVal)*100)}%"></div>
+                </div>`).join('');
+
+            document.getElementById('chartLabels').innerHTML = labels.map(l => `
+                <div style="flex:1;text-align:center;font-size:9px;color:#a0aec0;font-weight:600">${l}</div>`).join('');
+
+            statsEl.innerHTML = `
+                <div class="chart-stat-card">
+                    <div class="chart-stat-value">${sum}</div>
+                    <div class="chart-stat-label">XP no Período</div>
+                </div>
+                <div class="chart-stat-card">
+                    <div class="chart-stat-value">${avg}</div>
+                    <div class="chart-stat-label">Média por Dia</div>
+                </div>
+                <div class="chart-stat-card">
+                    <div class="chart-stat-value">${best}</div>
+                    <div class="chart-stat-label">Melhor Dia</div>
+                </div>
+                <div class="chart-stat-card">
+                    <div class="chart-stat-value">${daysOk}</div>
+                    <div class="chart-stat-label">Dias Ativos</div>
+                </div>`;
+        }
+
+        // ==================== END DRAWER ====================
+
+        console.log('🎮 Kiddo v3.0 - Com Autenticação [FIXED]');
+
+        // Helper unificado para notificações (Android Nativo + Web)
+        function notify(seconds, title, body) {
+            // 1. Tenta usar a ponte Android (Prioridade: funciona em background/fechado)
+            if (window.Android) {
+                if ((!title || !body) && Android.scheduleRandomNotification) {
+                    Android.scheduleRandomNotification(seconds);
+                    return;
+                }
+                if (Android.scheduleCustomNotification) {
+                    Android.scheduleCustomNotification(seconds, title || "Lembrete", body || "Hora de voltar para o Kiddo!");
+                }
+            } 
+            // 2. Fallback para Navegador Web (PC/Mobile Browser)
+            else if ('Notification' in window && title && body) {
+                const trigger = () => {
+                     // Verifica permissão novamente antes de disparar
+                     if (Notification.permission === 'granted') {
+                         new Notification(title, {
+                             body: body,
+                             icon: 'assets/icon.png', // Ícone opcional
+                             vibrate: [100, 50, 100],
+                             tag: 'kiddo-notification'
+                         });
+                     }
+                };
+                
+                // Solicita permissão se necessário
+                if (Notification.permission === 'granted') {
+                    setTimeout(trigger, seconds * 1000);
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(p => {
+                        if (p === 'granted') setTimeout(trigger, seconds * 1000);
+                    });
+                }
+            }
+        }
+
+        // Função de notificações inteligentes
+        function scheduleSmartNotifications() {
+            const now = new Date();
+            const hour = now.getHours();
+
+            // 1. Notificação de Boas-vindas (se for novo usuário)
+            // Lógica: se não tem XP, incentiva o início após 5 segundos
+            if (totalXP === 0) {
+                 notify(
+                     5, 
+                     "Bem-vindo ao Kiddo! 🚀", 
+                     "Vamos completar sua primeira tarefa hoje?"
+                 );
+            }
+
+            // 2. Proteção de Streak (tipo Duolingo)
+            // Se o usuário tem streak > 0 mas não fez nada hoje, avisa para não perder
+            const todayKey = now.toISOString().split('T')[0];
+            const hasActivityToday = progress && progress[todayKey];
+            
+            if (streakCount > 0 && !hasActivityToday) {
+                // Agenda para as 18h se ainda for cedo, ou para daqui a 1 hora se já for tarde
+                let delaySeconds = 3600; // padrão 1 hora
+                
+                if (hour < 18) {
+                    const target = new Date(now);
+                    target.setHours(18, 0, 0, 0);
+                    delaySeconds = (target - now) / 1000;
+                }
+                
+                // Usa mensagem aleatória motivacional (definida no Android)
+                notify(delaySeconds);
+            } else {
+                // Agendamento padrão de retorno (24h)
+                notify(
+                    24 * 3600,
+                    "Hora de aprender! 🌟",
+                    "Novas aventuras esperam por você no Kiddo."
+                );
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+           if (window.Android && Android.onWebAppReady) {
+             Android.onWebAppReady();
+           }
+        });
+    </script>
+</body>
+</html>
