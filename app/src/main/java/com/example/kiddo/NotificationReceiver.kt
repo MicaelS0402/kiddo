@@ -28,7 +28,7 @@ class NotificationReceiver : BroadcastReceiver() {
         val notificationId = intent.getIntExtra("notificationId", 1001)
 
         val notification = NotificationCompat.Builder(context, "kiddo_channel_id")
-            .setSmallIcon(android.R.drawable.ic_dialog_info) // Ícone genérico do sistema, idealmente seria R.drawable.logo
+            .setSmallIcon(R.drawable.logo)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
