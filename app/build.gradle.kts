@@ -9,12 +9,33 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.kiddo"
+        applicationId = (project.findProperty("KIDDO_APP_ID") as String?) ?: "com.example.kiddo"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = ((project.findProperty("KIDDO_VERSION_CODE") as String?)?.toIntOrNull()) ?: 2
+        versionName = (project.findProperty("KIDDO_VERSION_NAME") as String?) ?: "1.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    val keystorePath = project.findProperty("KIDDO_KEYSTORE_PATH") as String?
+    val keystorePassword = project.findProperty("KIDDO_KEYSTORE_PASSWORD") as String?
+    val keyAlias = project.findProperty("KIDDO_KEY_ALIAS") as String?
+    val keyPassword = project.findProperty("KIDDO_KEY_PASSWORD") as String?
+
+    signingConfigs {
+        if (
+            !keystorePath.isNullOrBlank() &&
+            !keystorePassword.isNullOrBlank() &&
+            !keyAlias.isNullOrBlank() &&
+            !keyPassword.isNullOrBlank()
+        ) {
+            create("release") {
+                storeFile = file(keystorePath)
+                storePassword = keystorePassword
+                this.keyAlias = keyAlias
+                this.keyPassword = keyPassword
+            }
+        }
     }
 
     buildTypes {
@@ -24,6 +45,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfigs.findByName("release")?.let { signingConfig = it }
         }
     }
 
