@@ -230,16 +230,6 @@ class MainActivity : ComponentActivity() {
                                  requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
                              }
                         }
-                        
-                        // Verifica permissão de alarme exato no Android 12+
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                            if (!alarmManager.canScheduleExactAlarms()) {
-                                // Redirecionar usuário para configurações se crítico, 
-                                // mas aqui apenas evitamos o crash ou logamos
-                                println("Permissão de alarme exato necessária para notificações precisas.")
-                            }
-                        }
 
                         // Agenda em segundos (hours * 3600)
                         scheduleNotification(hours * 3600)
@@ -263,14 +253,6 @@ class MainActivity : ComponentActivity() {
                              }
                         }
 
-                        // Verifica permissão de alarme exato no Android 12+
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                            if (!alarmManager.canScheduleExactAlarms()) {
-                                println("Permissão de alarme exato necessária para notificações precisas.")
-                            }
-                        }
-
                         scheduleNotification(seconds, title, message)
                         // Toast removido para ser silencioso
                         // Toast.makeText(this@MainActivity, "Notificação agendada!", Toast.LENGTH_SHORT).show()
@@ -289,12 +271,6 @@ class MainActivity : ComponentActivity() {
                                  android.content.pm.PackageManager.PERMISSION_GRANTED) {
                                  requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
                              }
-                        }
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                            if (!alarmManager.canScheduleExactAlarms()) {
-                                println("Permissão de alarme exato necessária para notificações precisas.")
-                            }
                         }
                         scheduleNotification(seconds)
                     } catch (e: Exception) {
@@ -374,10 +350,12 @@ class MainActivity : ComponentActivity() {
 
         val triggerTime = System.currentTimeMillis() + (seconds * 1000)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
         } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
         }
     }
 }
